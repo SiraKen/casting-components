@@ -1,14 +1,25 @@
-import { useState } from 'react';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './pages/home'
+import Clock from './pages/clock';
+import Counter from './pages/counter';
+import Page404 from './pages/404';
+import Navigation from './components/navigation';
+import './assets/bootstrap-reboot.min.css';
+import './assets/App.css';
 
 function App() {
-  
-  const [count, setCount] = useState(0);
   return (
     <div className="App">
-      <h1>{ count }</h1>
-      <button onClick={(e) => { setCount(count + 1) }}>Count Up</button>
-      <button onClick={(e) => { setCount(count - 1) }}>Count Down</button>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Home } />
+          <Route exact path="/clock" component={ Clock } />
+          <Route exact path="/clock/:unit/:delay" component={ Clock } />
+          <Route exact path="/counter" component={ Counter } />
+          <Route component={ Page404 } />
+        </Switch>
+        <Navigation></Navigation>
+      </BrowserRouter>
     </div>
   );
 }
