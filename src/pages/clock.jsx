@@ -9,7 +9,7 @@ const ClockText = styled.p`
 `
 
 const Clock = () => {
-  const [ time, setTime ] = useState('Loading');
+  const [ time, setTime ] = useState('Loading...');
 
   const { unit, delay } = useParams();
 
@@ -24,23 +24,43 @@ const Clock = () => {
     let second = zeroFill( now.getSeconds() );
 
     if (unit !== undefined && delay !== undefined) {
-      let diff = Number(delay)
+
+      // convert to number
+      delay = Number(delay)
+
+      /**
+       * return error if given args are...
+       * hour < 24 | minute < 60 | second < 60
+       */
+      if ((unit == 'hour' && 24 < delay ) || (unit == 'min' && 60 < delay) || (unit == 'sec' && 60 < delay)) {
+        setTime('Error');
+        return false;
+      }
+
       switch (unit) {
         case 'hour':
-          hour = (now.getHours() + diff) < 24 ?
-          zeroFill( now.getHours() + diff ) : zeroFill( (now.getHours() + diff) - 24 );
+          hour = (now.getHours() + delay) < 24 ?
+          zeroFill( now.getHours() + delay ) :
+          zeroFill( (now.getHours() + delay) - 24 );
           break;
         case 'min':
-          minute = (now.getMinutes() + diff < 60) ?
-          zeroFill( now.getMinutes() + diff ) :
-          zeroFill( now.getMinutes() + diff - 60 );
+          minute = (now.getMinutes() + delay < 60) ?
+          zeroFill( now.getMinutes() + delay ) :
+          (() => {
+            (hour + 1) < 24 ? hour++ : hour = zeroFill(0);
+            return zeroFill( now.getMinutes() + delay - 60 );
+          })();
           break;
         case 'sec':
-          second = (now.getSeconds() + diff < 60) ?
-          zeroFill( now.getSeconds() + diff ) :
-          zeroFill( now.getSeconds() + diff - 60 );
+          second = (now.getSeconds() + delay < 60) ?
+          zeroFill( now.getSeconds() + delay ) :
+          (() => {
+            (minute + 1) < 60 ? minute++ : minute = zeroFill(0);
+            return zeroFill( now.getSeconds() + delay - 60 );
+          })();
           break;
         default:
+          setTime('Error');
           break;
       }
     }

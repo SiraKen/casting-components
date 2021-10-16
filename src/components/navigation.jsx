@@ -43,7 +43,7 @@ const Navigation = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="counter">Counter</Link>
+          <Link to="/counter">Counter</Link>
         </li>
         <li>
           <Link to="/clock">Clock</Link>
