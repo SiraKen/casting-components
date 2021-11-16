@@ -1,15 +1,15 @@
-import { React, useState } from "react";
+import React from "react";
+import { useState } from "react";
 import SEO from "../components/seo";
 import styled from "styled-components";
 
 const Home = () => {
-
   return (
     <div>
-      <SEO title="Home"></SEO>
+      {/* <SEO title="Home"></SEO> */}
       <h1>Home</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
