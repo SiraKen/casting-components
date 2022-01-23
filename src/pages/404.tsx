@@ -1,13 +1,6 @@
 import React from "react";
-import SEO from "../components/seo";
+import Layout from "../layouts/default";
 
-const Page404 = () => {
-  return (
-    <>
-      {/* <SEO title="404"></SEO> */}
-      404
-    </>
-  );
-};
-
-export default Page404;
+export default function Page404() {
+  return <Layout>404</Layout>;
+}

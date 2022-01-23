@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import SEO from "../components/seo";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import Layout from "../layouts/default";
+
+const Font = process.env.REACT_APP_COUNTER_FONT;
 
 const CtrlPanel = styled.div`
   border-top: solid 1px #ccc;
@@ -11,6 +13,9 @@ const CtrlPanel = styled.div`
 const CounterText = styled.h1`
   font-size: 5rem;
   font-weight: bold;
+  font-family: ${Font !== ""
+    ? Font
+    : "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
   margin: 0;
 
   &::after {
@@ -27,12 +32,11 @@ const Button = styled.button`
   outline: none !important;
 `;
 
-const Counter = () => {
+export default function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <SEO title="Counter"></SEO>
+    <Layout>
       <CounterText id="counter">{count}</CounterText>
       <CtrlPanel>
         <Button
@@ -50,8 +54,6 @@ const Counter = () => {
           Count Down
         </Button>
       </CtrlPanel>
-    </>
+    </Layout>
   );
-};
-
-export default Counter;
+}

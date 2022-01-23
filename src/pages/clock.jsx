@@ -1,15 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
-import SEO from "../components/seo";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import Layout from "../layouts/default";
+
+const Font = process.env.REACT_APP_CLOCK_FONT;
 
 const ClockText = styled.p`
   margin: 0;
   font-size: 3rem;
+  font-family: ${Font !== ""
+    ? Font
+    : "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
 `;
 
-const Clock = () => {
+export default function Clock() {
   const [time, setTime] = useState("Loading...");
 
   const { unit, delay } = useParams();
@@ -78,11 +83,8 @@ const Clock = () => {
   setInterval(countClock, 1000);
 
   return (
-    <>
-      <SEO title="Clock"></SEO>
+    <Layout>
       <ClockText id="clock">{time}</ClockText>
-    </>
+    </Layout>
   );
-};
-
-export default Clock;
+}

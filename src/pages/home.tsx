@@ -1,15 +1,30 @@
 import React from "react";
 import { useState } from "react";
-import SEO from "../components/seo";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
+import Layout from "../layouts/default";
 
-const Home = () => {
+export default function Home() {
+  const actions = [
+    {
+      name: "Clock",
+      url: "clock",
+    },
+    {
+      name: "Counter",
+      url: "counter",
+    },
+  ];
   return (
-    <div>
-      {/* <SEO title="Home"></SEO> */}
+    <Layout>
       <h1>Home</h1>
-    </div>
+      <ul>
+        {actions.map((action) => (
+          <li>
+            <Link to={`/${action.url}`}>{action.name}</Link>
+          </li>
+        ))}
+      </ul>
+    </Layout>
   );
-};
-
-export default Home;
+}
