@@ -5,11 +5,13 @@ import styled from "@emotion/styled";
 import Layout from "../layouts/default";
 
 const Font = process.env.REACT_APP_CLOCK_FONT;
+const Weight = process.env.REACT_APP_CLOCK_WEIGHT;
 
 const ClockText = styled.p`
   margin: 0;
   font-size: 3rem;
-  font-family: ${Font !== ""
+  font-weight: ${Weight !== "" && Weight !== undefined ? Weight : "normal"};
+  font-family: ${Font !== "" && Font !== undefined
     ? Font
     : "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
 `;

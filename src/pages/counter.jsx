@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Layout from "../layouts/default";
 
 const Font = process.env.REACT_APP_COUNTER_FONT;
+const Weight = process.env.REACT_APP_COUNTER_WEIGHT;
 
 const CtrlPanel = styled.div`
   border-top: solid 1px #ccc;
@@ -12,8 +13,8 @@ const CtrlPanel = styled.div`
 
 const CounterText = styled.h1`
   font-size: 5rem;
-  font-weight: bold;
-  font-family: ${Font !== ""
+  font-weight: ${Weight !== "" && Weight !== undefined ? Weight : "bold"};
+  font-family: ${Font !== "" && Font !== undefined
     ? Font
     : "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"};
   margin: 0;
