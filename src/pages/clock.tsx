@@ -19,21 +19,21 @@ const ClockText = styled.p`
 export default function Clock() {
   const [time, setTime] = useState("Loading...");
 
-  const { unit, delay } = useParams();
+  const { unit, delay } = useParams<any>();
 
-  const zeroFill = (num) => {
+  const zeroFill = (num: Number) => {
     return ("00" + num).slice(-2);
   };
 
   const countClock = () => {
     let now = new Date();
-    let hour = zeroFill(now.getHours());
-    let minute = zeroFill(now.getMinutes());
-    let second = zeroFill(now.getSeconds());
+    let hour: number = now.getHours();
+    let minute: number = now.getMinutes();
+    let second: number = now.getSeconds();
 
     if (unit !== undefined && delay !== undefined) {
       // convert to number
-      delay = Number(delay);
+      // delay = Number(delay);
 
       /**
        * return error if given args are...
@@ -52,25 +52,25 @@ export default function Clock() {
         case "hour":
           hour =
             now.getHours() + delay < 24
-              ? zeroFill(now.getHours() + delay)
-              : zeroFill(now.getHours() + delay - 24);
+              ? now.getHours() + delay
+              : now.getHours() + delay - 24;
           break;
         case "min":
           minute =
             now.getMinutes() + delay < 60
-              ? zeroFill(now.getMinutes() + delay)
+              ? now.getMinutes() + delay
               : (() => {
-                  hour + 1 < 24 ? hour++ : (hour = zeroFill(0));
-                  return zeroFill(now.getMinutes() + delay - 60);
+                  Number(hour + 1) < 24 ? hour++ : (hour = 0);
+                  return now.getMinutes() + delay - 60;
                 })();
           break;
         case "sec":
           second =
             now.getSeconds() + delay < 60
-              ? zeroFill(now.getSeconds() + delay)
+              ? now.getSeconds() + delay
               : (() => {
-                  minute + 1 < 60 ? minute++ : (minute = zeroFill(0));
-                  return zeroFill(now.getSeconds() + delay - 60);
+                  minute + 1 < 60 ? minute++ : (minute = 0);
+                  return now.getSeconds() + delay - 60;
                 })();
           break;
         default:
@@ -79,7 +79,7 @@ export default function Clock() {
       }
     }
 
-    setTime(hour + ":" + minute + ":" + second);
+    setTime(zeroFill(hour) + ":" + zeroFill(minute) + ":" + zeroFill(second));
   };
 
   setInterval(countClock, 1000);

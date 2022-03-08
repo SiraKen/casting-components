@@ -1,7 +1,5 @@
 import React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
 import Layout from "../layouts/default";
 
 export default function Home() {
