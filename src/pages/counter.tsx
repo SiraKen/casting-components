@@ -1,15 +1,13 @@
-import React from "react";
+import * as React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Layout from "../layouts/default";
+import { Helmet } from "react-helmet";
+import { Button, ButtonGroup, Container, Grid } from "@mui/material";
 
 const Font = process.env.REACT_APP_COUNTER_FONT;
 const Weight = process.env.REACT_APP_COUNTER_WEIGHT;
-
-const CtrlPanel = styled.div`
-  border-top: solid 1px #ccc;
-  margin: 200px 0 0 0;
-`;
 
 const CounterText = styled.h1`
   font-size: 5rem;
@@ -24,37 +22,45 @@ const CounterText = styled.h1`
   }
 `;
 
-const Button = styled.button`
-  background: #000;
-  color: #fff;
-  padding: 0.5rem;
-  margin: 5px;
-  border: none;
-  outline: none !important;
-`;
-
 export default function Counter() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
 
   return (
-    <Layout>
-      <CounterText id="counter">{count}</CounterText>
-      <CtrlPanel>
-        <Button
-          onClick={(e) => {
-            setCount(count + 1);
-          }}
-        >
-          Count Up
-        </Button>
-        <Button
-          onClick={(e) => {
-            setCount(count !== 0 ? count - 1 : count);
-          }}
-        >
-          Count Down
-        </Button>
-      </CtrlPanel>
-    </Layout>
+    <>
+      <Helmet>
+        <title>Counter</title>
+      </Helmet>
+      <Layout>
+        <Container>
+          <CounterText id="counter">{count}</CounterText>
+
+          <Grid container spacing={3} mt={50}>
+            <Grid item>
+              <ButtonGroup variant="contained">
+                <Button
+                  onClick={(e) => {
+                    setCount(count + 1);
+                  }}
+                >
+                  Count Up
+                </Button>
+                <Button
+                  onClick={(e) => {
+                    setCount(count !== 0 ? count - 1 : count);
+                  }}
+                >
+                  Count Down
+                </Button>
+              </ButtonGroup>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" component={Link} to="/">
+                Home
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      </Layout>
+    </>
   );
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import * as React from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
+import Helmet from "react-helmet";
 import styled from "@emotion/styled";
 import Layout from "../layouts/default";
 
@@ -17,7 +18,7 @@ const ClockText = styled.p`
 `;
 
 export default function Clock() {
-  const [time, setTime] = useState("Loading...");
+  const [time, setTime] = useState<string | null>("Loading...");
 
   const { unit, delay } = useParams<any>();
 
@@ -85,8 +86,13 @@ export default function Clock() {
   setInterval(countClock, 1000);
 
   return (
-    <Layout>
-      <ClockText id="clock">{time}</ClockText>
-    </Layout>
+    <>
+      <Helmet>
+        <title>Clock</title>
+      </Helmet>
+      <Layout>
+        <ClockText id="clock">{time}</ClockText>
+      </Layout>
+    </>
   );
 }

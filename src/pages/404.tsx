@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Layout from "../layouts/default";
 
 export default function Page404() {
