@@ -1,51 +1,48 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import Layout from "../layouts/default";
-import {
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { HourglassBottom, Alarm } from "@mui/icons-material";
+import { Link, redirect } from "react-router-dom";
+import { Button, Container, Icon, SemanticICONS } from "semantic-ui-react";
+import Layout from "../layouts/Layout";
 
-type Actions = {
-  name: string;
-  url: string;
-  icon: React.ReactNode;
-};
-
-export default function Home() {
-  const actions: Array<Actions> = [
+const Home = () => {
+  const actions: {
+    name: string;
+    url: string;
+    icon?: SemanticICONS;
+  }[] = [
     {
       name: "Clock",
       url: "clock",
-      icon: <Alarm />,
+      icon: "clock",
     },
     {
       name: "Counter",
       url: "counter",
-      icon: <HourglassBottom />,
+      icon: "plus",
     },
   ];
   return (
     <Layout>
       <Container>
-        <Typography variant="h5">Home</Typography>
-        <List>
-          {actions.map((action, i) => (
-            <ListItem key={i}>
-              <ListItemButton component={Link} to={action.url}>
-                <ListItemIcon>{action.icon}</ListItemIcon>
-                <ListItemText primary={action.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <div className="tw-grid">
+          <h1>Casting Components</h1>
+          <div>
+            {actions.map((action, i) => (
+              <Button
+                key={i}
+                icon
+                labelPosition="left"
+                as={Link}
+                to={action.url}
+                primary
+              >
+                <Icon name={action.icon} /> {action.name}
+              </Button>
+            ))}
+          </div>
+        </div>
       </Container>
     </Layout>
   );
-}
+};
+
+export { Home };
